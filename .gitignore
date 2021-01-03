@@ -67,4 +67,10 @@ iOSInjectionProject/
 
 ### Objective-C Patch ###
 
+### Xcode Patch ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+
 # End of https://www.gitignore.io/api/objective-c

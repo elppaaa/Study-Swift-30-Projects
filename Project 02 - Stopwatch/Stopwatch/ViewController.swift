@@ -13,7 +13,7 @@ class ViewController: UIViewController, UITableViewDelegate {
   fileprivate let lapStopwatch: Stopwatch = Stopwatch()
   fileprivate var isPlay: Bool = false
   fileprivate var laps: [String] = []
-
+  
   // MARK: - UI components
   @IBOutlet weak var timerLabel: UILabel!
   @IBOutlet weak var lapTimerLabel: UILabel!
@@ -32,7 +32,7 @@ class ViewController: UIViewController, UITableViewDelegate {
     
     initCircleButton(playPauseButton)
     initCircleButton(lapRestButton)
-  
+    
     lapRestButton.isEnabled = false
     
     lapsTableView.delegate = self;
@@ -40,23 +40,16 @@ class ViewController: UIViewController, UITableViewDelegate {
   }
   
   // MARK: - UI Settings
-  override var shouldAutorotate : Bool {
-    return false
-  }
+  override var shouldAutorotate : Bool { false }
   
-  override var preferredStatusBarStyle : UIStatusBarStyle {
-    return UIStatusBarStyle.lightContent
-  }
+  override var preferredStatusBarStyle : UIStatusBarStyle { .default }
   
-  override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
-    return UIInterfaceOrientationMask.portrait
-  }
+  override var supportedInterfaceOrientations : UIInterfaceOrientationMask { .portrait }
   
   // MARK: - Actions
   @IBAction func playPauseTimer(_ sender: AnyObject) {
     lapRestButton.isEnabled = true
-  
-    changeButton(lapRestButton, title: "Lap", titleColor: UIColor.black)
+    
     
     if !isPlay {
       unowned let weakSelf = self
@@ -68,6 +61,7 @@ class ViewController: UIViewController, UITableViewDelegate {
       RunLoop.current.add(lapStopwatch.timer, forMode: RunLoop.Mode.common)
       
       isPlay = true
+      changeButton(lapRestButton, title: "Lap", titleColor: UIColor.black)
       changeButton(playPauseButton, title: "Stop", titleColor: UIColor.red)
     } else {
       
@@ -118,7 +112,7 @@ class ViewController: UIViewController, UITableViewDelegate {
     stopwatch.counter = 0.0
     label.text = "00:00:00"
   }
-
+  
   @objc func updateMainTimer() {
     updateTimer(mainStopwatch, label: timerLabel)
   }
@@ -153,12 +147,14 @@ extension ViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let identifier: String = "lapCell"
     let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-
+    
     if let labelNum = cell.viewWithTag(11) as? UILabel {
-      labelNum.text = "Lap \(laps.count - (indexPath as NSIndexPath).row)"
+//      labelNum.text = "Lap \(laps.count - (indexPath as NSIndexPath).row)"
+      labelNum.text = "Lap \(laps.count - indexPath.row)"
     }
     if let labelTimer = cell.viewWithTag(12) as? UILabel {
-      labelTimer.text = laps[laps.count - (indexPath as NSIndexPath).row - 1]
+//      labelTimer.text = laps[laps.count - (indexPath as NSIndexPath).row - 1]
+      labelTimer.text = laps[laps.count - indexPath.row - 1]
     }
     
     return cell
@@ -169,4 +165,9 @@ extension ViewController: UITableViewDataSource {
 fileprivate extension Selector {
   static let updateMainTimer = #selector(ViewController.updateMainTimer)
   static let updateLapTimer = #selector(ViewController.updateLapTimer)
+}
+
+
+enum TimerState {
+  case stop, playing, pause
 }
