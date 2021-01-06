@@ -12,6 +12,10 @@ class FBMeBaseCell: UITableViewCell {
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: .default, reuseIdentifier: reuseIdentifier)
+  }
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
     
     backgroundColor = Specs.color.white
     textLabel?.textColor = Specs.color.black
@@ -19,6 +23,7 @@ class FBMeBaseCell: UITableViewCell {
     
     detailTextLabel?.font = Specs.font.small
     detailTextLabel?.textColor = Specs.color.gray
+    
   }
   
   required init?(coder aDecoder: NSCoder) {

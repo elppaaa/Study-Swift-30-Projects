@@ -9,17 +9,15 @@ import UIKit
 
 class FBMeViewController: FBMeBaseViewController {
   
-  typealias RowModel = [String: String]
-  
   fileprivate var user: FBMeUser {
     get {
       return FBMeUser(name: "BayMax", education: "CMU")
     }
   }
   
-  fileprivate var tableViewDataSource: [[String: Any]] {
+  fileprivate var tableViewDataSource: [TableSectionData] {
     get {
-     return TableKeys.populate(withUser: user)
+      return TableKeys.populate2(withUser: user)
     }
   }
   
@@ -45,16 +43,16 @@ class FBMeViewController: FBMeBaseViewController {
     view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[tableView]-0-|", options: .directionLeadingToTrailing, metrics: nil, views: ["tableView": tableView]))
   }
   
-  fileprivate func rows(at section: Int) -> [Any] {
-    return tableViewDataSource[section][TableKeys.Rows] as! [Any]
+  fileprivate func rows(at section: Int) -> [RowModel] {
+    tableViewDataSource[section].rows
   }
   
   fileprivate func title(at section: Int) -> String? {
-    return tableViewDataSource[section][TableKeys.Section] as? String
+    tableViewDataSource[section].sectionName
   }
   
   fileprivate func rowModel(at indexPath: IndexPath) -> RowModel {
-    return rows(at: indexPath.section)[indexPath.row] as! RowModel
+    rows(at: indexPath.section)[indexPath.row]
   }
 }
 
@@ -73,28 +71,30 @@ extension FBMeViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let modelForRow = rowModel(at: indexPath)
-    var cell = UITableViewCell()
     
-    guard let title = modelForRow[TableKeys.Title] else {
-      return cell
+    var cell: UITableViewCell!
+    
+    guard let title = modelForRow[.title] else {
+      fatalError("\(indexPath.description)Title Not Founded")
     }
     
+    // title & subtitle
     if title == user.name {
-      cell = UITableViewCell.init(style: .subtitle, reuseIdentifier: nil)
+      cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+      cell.detailTextLabel?.text = modelForRow[.subTitle]
     } else {
       cell = tableView.dequeueReusableCell(withIdentifier: FBMeBaseCell.identifier, for: indexPath)
     }
-
+    
     cell.textLabel?.text = title
     
-    if let imageName = modelForRow[TableKeys.ImageName] {
+    // image set
+    if let imageName = modelForRow[.image] {
       cell.imageView?.image = UIImage(named: imageName)
-    } else if title != TableKeys.logout {
-      cell.imageView?.image = UIImage(named: Specs.imageName.placeholder)
-    }
-    
-    if title == user.name {
-      cell.detailTextLabel?.text = modelForRow[TableKeys.SubTitle]
+    } else if title == Specs.String.logout {
+      cell.imageView?.image = nil
+    } else {
+      cell.imageView?.image = UIImage()
     }
     
     return cell
@@ -105,8 +105,8 @@ extension FBMeViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     let modelForRow = rowModel(at: indexPath)
     
-    guard let title = modelForRow[TableKeys.Title] else {
-      return 0.0
+    guard let title = modelForRow[.title] else {
+      fatalError("\(indexPath.description)Title Not Founded")
     }
     
     if title == user.name {
@@ -119,14 +119,14 @@ extension FBMeViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     let modelForRow = rowModel(at: indexPath)
     
-    guard let title = modelForRow[TableKeys.Title] else {
-      return
+    guard let title = modelForRow[.title] else {
+      fatalError("\(indexPath.description)\nTitle Not Founded")
     }
     
-    if title == TableKeys.seeMore || title == TableKeys.addFavorites {
+    if title == Specs.String.seeMore || title == Specs.String.addFavorites {
       cell.textLabel?.textColor = Specs.color.tint
       cell.accessoryType = .none
-    } else if title == TableKeys.logout {
+    } else if title == Specs.String.logout {
       cell.textLabel?.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
       cell.textLabel?.textColor = Specs.color.red
       cell.textLabel?.textAlignment = .center

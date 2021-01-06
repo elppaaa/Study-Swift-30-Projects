@@ -16,6 +16,12 @@ public struct Specs {
     public let gray = UIColor.lightGray
   }
   
+  public struct String {
+    static let seeMore = "See More..."
+    static let addFavorites = "Add Favorites..."
+    static let logout = "Log Out"
+  }
+  
   public struct FontSize {
     public let tiny: CGFloat = 10
     public let small: CGFloat = 12

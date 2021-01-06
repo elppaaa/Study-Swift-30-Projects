@@ -8,53 +8,52 @@
 import Foundation
 
 public struct TableKeys {
-  static let Section = "section"
-  static let Rows = "rows"
-  static let ImageName = "imageName"
-  static let Title = "title"
-  static let SubTitle = "subTitle"
-  static let seeMore = "See More..."
-  static let addFavorites = "Add Favorites..."
-  static let logout = "Log Out"
+  init() { }
   
-  static func populate(withUser user: FBMeUser) -> [[String: Any]] {
+  static let image = RowKey.image
+  static let title = RowKey.title
+  static let subtitle = RowKey.subTitle
+  
+  static func populate2(withUser user: FBMeUser) -> [TableSectionData] {
     return [
-      [
-        TableKeys.Rows: [
-          [TableKeys.ImageName: user.avatarName, TableKeys.Title: user.name, TableKeys.SubTitle: "View your profile"]
-        ]
-      ],
-      [
-        TableKeys.Rows: [
-          [TableKeys.ImageName: Specs.imageName.friends, TableKeys.Title: "Friends"],
-          [TableKeys.ImageName: Specs.imageName.events, TableKeys.Title: "Events"],
-          [TableKeys.ImageName: Specs.imageName.groups, TableKeys.Title: "Groups"],
-          [TableKeys.ImageName: Specs.imageName.education, TableKeys.Title: user.education],
-          [TableKeys.ImageName: Specs.imageName.townHall, TableKeys.Title: "Town Hall"],
-          [TableKeys.ImageName: Specs.imageName.instantGames, TableKeys.Title: "Instant Games"],
-          [TableKeys.Title: TableKeys.seeMore]
-        ]
-      ],
-      [
-        TableKeys.Section: "FAVORITES",
-        TableKeys.Rows: [
-          [TableKeys.Title: TableKeys.addFavorites]
-        ]
-      ],
-      [
-        TableKeys.Rows: [
-          [TableKeys.ImageName: Specs.imageName.settings, TableKeys.Title: "Settings"],
-          [TableKeys.ImageName: Specs.imageName.privacyShortcuts, TableKeys.Title: "Privacy Shortcuts"],
-          [TableKeys.ImageName: Specs.imageName.helpSupport, TableKeys.Title: "Help and Support"]
-        ]
-      ],
-      [
-        TableKeys.Rows: [
-          [TableKeys.Title: TableKeys.logout]
-        ]
-      ]
+      TableSectionData(sectionName: nil, rows: [
+        [image: user.avatarName, title: user.name, subtitle: "View your profile"],
+      ]),
+      TableSectionData(sectionName: nil, rows: [
+        [image: Specs.imageName.friends, title: "Friends"],
+        [image: Specs.imageName.events, title: "Events"],
+        [image: Specs.imageName.groups, title: "Groups"],
+        [image: Specs.imageName.education, title: user.education],
+        [image: Specs.imageName.townHall, title: "Town Hall"],
+        [image: Specs.imageName.instantGames, title: "Instant Games"],
+        [title: Specs.String.seeMore]
+      ]),
+      TableSectionData(sectionName: "FAVORITES", rows: [
+        [title: Specs.String.addFavorites]
+      ]),
+      TableSectionData(sectionName: nil, rows: [
+        [image: Specs.imageName.settings, title: "Settings"],
+        [image: Specs.imageName.privacyShortcuts, title: "Privacy Shortcuts"],
+        [image: Specs.imageName.helpSupport, title: "Help and Support"]
+      ]),
+      TableSectionData(sectionName: nil, rows: [
+        [title: Specs.String.logout]
+      ]),
     ]
   }
 }
+
+enum RowKey {
+  case image, title, subTitle
+}
+
+typealias RowModel = [RowKey: String]
+
+struct TableSectionData {
+  let sectionName: String?
+  let rows: [RowModel]
+}
+
+
 
 
