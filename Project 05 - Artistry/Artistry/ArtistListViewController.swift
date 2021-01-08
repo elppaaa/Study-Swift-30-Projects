@@ -24,7 +24,7 @@ import UIKit
 
 class ArtistListViewController: UIViewController {
   
-  let artists = Artist.artistsFromBundle()
+  let artists = ArtistModel.getJSON()
   
   @IBOutlet weak var tableView: UITableView!
   
