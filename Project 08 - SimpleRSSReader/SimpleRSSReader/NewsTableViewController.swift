@@ -12,7 +12,7 @@ class NewsTableViewController: UITableViewController {
   fileprivate let feedParser = FeedParser()
   fileprivate let feedURL = "http://www.apple.com/main/rss/hotnews/hotnews.rss"
   
-  fileprivate var rssItems: [(title: String, description: String, pubDate: String)]?
+  fileprivate var rssItems: [RssItem]?
   fileprivate var cellStates: [CellState]?
 
   override func viewDidLoad() {
@@ -22,15 +22,8 @@ class NewsTableViewController: UITableViewController {
     tableView.rowHeight = UITableView.automaticDimension
     
     tableView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
-    
-    feedParser.parseFeed(feedURL: feedURL) { [weak self] rssItems in
-      self?.rssItems = rssItems
-      self?.cellStates = Array(repeating: .collapsed, count: rssItems.count)
-      
-      DispatchQueue.main.async {
-        self?.tableView.reloadSections(IndexSet(integer: 0), with: .none)
-      }
-    }
+    feedParser.delegate = self
+    feedParser.parseFeed(feedURL: feedURL)
   }
   
   // MARK: - Table view data source
@@ -50,8 +43,8 @@ class NewsTableViewController: UITableViewController {
     let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NewsTableViewCell
     
     if let item = rssItems?[indexPath.row] {
-      (cell.titleLabel.text, cell.descriptionLabel.text, cell.dateLabel.text) = (item.title, item.description, item.pubDate)
-      
+      (cell.titleLabel.text, cell.descriptionLabel.text, cell.dateLabel.text) = item
+
       if let cellState = cellStates?[indexPath.row] {
         cell.descriptionLabel.numberOfLines = cellState == .expanded ? 0: 4
       }
@@ -62,13 +55,23 @@ class NewsTableViewController: UITableViewController {
   
   // MARK: - Table view delegate
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
-    
     let cell = tableView.cellForRow(at: indexPath) as! NewsTableViewCell
     
     tableView.beginUpdates()
+    tableView.deselectRow(at: indexPath, animated: true)
     cell.descriptionLabel.numberOfLines = cell.descriptionLabel.numberOfLines == 4 ? 0 : 4
     cellStates?[indexPath.row] = cell.descriptionLabel.numberOfLines == 4 ? .collapsed : .expanded
     tableView.endUpdates()
+  }
+}
+
+extension NewsTableViewController: FeedParserDelegate {
+  func updateItems(with rssItems: [RssItem]) {
+    self.rssItems = rssItems
+    self.cellStates = Array(repeating: .collapsed, count: rssItems.count)
+    
+    DispatchQueue.main.async {
+      self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
+    }
   }
 }

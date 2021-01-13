@@ -8,8 +8,8 @@
 import Foundation
 
 class FeedParser: NSObject, XMLParserDelegate {
-  fileprivate var rssItems = [(title: String, description: String, pubDate: String)]()
-  
+  fileprivate var rssItems = [RssItem]()
+  var delegate: FeedParserDelegate?
   fileprivate var currentElement = ""
   
   fileprivate var currentTitle = "" {
@@ -30,12 +30,8 @@ class FeedParser: NSObject, XMLParserDelegate {
     }
   }
   
-  fileprivate var parserCompletionHandler: (([(title: String, description: String, pubDate: String)]) -> Void)?
-  
-  func parseFeed(feedURL: String, completionHandler: (([(title: String, description: String, pubDate: String)]) -> Void)?) -> Void {
-    
-    parserCompletionHandler = completionHandler
-    
+  func parseFeed(feedURL: String) {
+
     guard let feedURL = URL(string:feedURL) else {
       print("feed URL is invalid")
       return
@@ -95,10 +91,21 @@ class FeedParser: NSObject, XMLParserDelegate {
   }
   
   func parserDidEndDocument(_ parser: XMLParser) {
-    parserCompletionHandler?(rssItems)
+    delegate?.updateItems(with: rssItems)
   }
   
   func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
     print(parseError.localizedDescription)
   }
+}
+
+typealias RssItem = (title: String, description: String, pubDate: String)
+
+protocol FeedParserDelegate {
+  func updateItems(with rssItems: [RssItem])
+}
+
+enum CellState {
+  case expanded
+  case collapsed
 }
