@@ -51,7 +51,7 @@ class PhotoCommentViewController: UIViewController {
       return
     }
     let keyboardFrame = value.cgRectValue
-    let adjustmentHeight = (keyboardFrame.height + 20) * (isShow ? 1 : -1)
+    let adjustmentHeight = (keyboardFrame.height + 20) * (isShow ? 1 : -2)
     scrollView.contentInset.bottom += adjustmentHeight
     scrollView.scrollIndicatorInsets.bottom += adjustmentHeight
   }

@@ -35,6 +35,8 @@ class ZoomedPhotoViewController: UIViewController {
   
   override func viewDidLoad() {
     imageView.image = UIImage(named: photoName)
+    scrollView.showsVerticalScrollIndicator = false
+    scrollView.showsHorizontalScrollIndicator = false
   }
   
   override func viewDidLayoutSubviews() {
@@ -51,7 +53,6 @@ class ZoomedPhotoViewController: UIViewController {
     let xOffset = max(0, (size.width - imageView.frame.width) / 2)
     imageViewLeadingConstraint.constant = xOffset
     imageViewTrailingConstraint.constant = xOffset
-    
     view.layoutIfNeeded()
   }
 

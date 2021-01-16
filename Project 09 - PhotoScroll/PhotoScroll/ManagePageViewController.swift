@@ -14,9 +14,9 @@ class ManagePageViewController: UIPageViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     dataSource = self
-    
+    view.backgroundColor = .white
+
     if let viewController = viewPhotoCommentController(index: currentIndex ?? 0) {
       let viewControllers = [viewController]
       setViewControllers (
@@ -27,10 +27,10 @@ class ManagePageViewController: UIPageViewController {
       )
     }
   }
-
+  
   fileprivate func viewPhotoCommentController(index: Int) -> PhotoCommentViewController? {
     if let storyboard = storyboard,
-      let page = storyboard.instantiateViewController(withIdentifier: "PhotoCommentViewController")
+       let page = storyboard.instantiateViewController(withIdentifier: "PhotoCommentViewController")
         as? PhotoCommentViewController {
       page.photoName = photos[index]
       page.photoIndex = index
@@ -66,10 +66,11 @@ extension ManagePageViewController: UIPageViewControllerDataSource {
   
   /// MARK: UIPageControl
   func presentationCount(for pageViewController: UIPageViewController) -> Int {
-    return photos.count
+    photos.count
   }
   
   func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-    return currentIndex ?? 0
+    currentIndex ?? 0
   }
 }
+
