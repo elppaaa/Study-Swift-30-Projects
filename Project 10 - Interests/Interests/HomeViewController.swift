@@ -55,5 +55,6 @@ extension HomeViewController: UIScrollViewDelegate {
     let roundedIndex = round(index)
     
     offset = CGPoint(x: roundedIndex * cellWidthWithSpace - scrollView.contentInset.left, y: -scrollView.contentInset.top)
+    targetContentOffset.pointee = offset
   }
 }

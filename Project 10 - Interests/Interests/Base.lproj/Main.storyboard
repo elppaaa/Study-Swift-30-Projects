@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4lj-Yg-idk">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4lj-Yg-idk">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,20 +16,20 @@
                         <viewControllerLayoutGuide type="bottom" id="iVa-tr-NEF"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="0Fn-sE-oNp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="r1" translatesAutoresizingMaskIntoConstraints="NO" id="7vg-p5-7LH">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="16" y="-52" width="358" height="904"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F2Y-mz-IXJ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="-8" width="390" height="860"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="T6H-cj-xPx">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="860"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FeJ-Hs-7jQ">
-                                            <rect key="frame" x="0.0" y="87" width="600" height="452"/>
+                                            <rect key="frame" x="0.0" y="79" width="375" height="460"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="10" id="6vt-MP-2E6">
@@ -42,7 +40,7 @@
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Interest Cell" id="8G7-Qe-71N" customClass="InterestCollectionViewCell" customModule="Interests" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="36" width="280" height="380"/>
+                                                    <rect key="frame" x="20" y="40" width="280" height="380"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                         <rect key="frame" x="0.0" y="0.0" width="280" height="380"/>
@@ -105,14 +103,14 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="7vg-p5-7LH" secondAttribute="trailing" id="3OF-gB-fIj"/>
-                            <constraint firstItem="7vg-p5-7LH" firstAttribute="top" secondItem="0Fn-sE-oNp" secondAttribute="top" id="4Wp-L6-daz"/>
-                            <constraint firstItem="iVa-tr-NEF" firstAttribute="top" secondItem="7vg-p5-7LH" secondAttribute="bottom" id="MOD-2Y-fGv"/>
-                            <constraint firstItem="F2Y-mz-IXJ" firstAttribute="top" secondItem="0Fn-sE-oNp" secondAttribute="top" id="PbG-j4-FzO"/>
-                            <constraint firstAttribute="trailing" secondItem="F2Y-mz-IXJ" secondAttribute="trailing" id="XJk-yp-Y3D"/>
-                            <constraint firstItem="F2Y-mz-IXJ" firstAttribute="leading" secondItem="0Fn-sE-oNp" secondAttribute="leading" id="gW0-HI-gbu"/>
-                            <constraint firstItem="7vg-p5-7LH" firstAttribute="leading" secondItem="0Fn-sE-oNp" secondAttribute="leading" id="qiC-Ka-hw1"/>
-                            <constraint firstItem="iVa-tr-NEF" firstAttribute="top" secondItem="F2Y-mz-IXJ" secondAttribute="bottom" id="znf-kr-0a4"/>
+                            <constraint firstAttribute="trailing" secondItem="F2Y-mz-IXJ" secondAttribute="trailing" id="0Zz-ox-6UM"/>
+                            <constraint firstItem="F2Y-mz-IXJ" firstAttribute="topMargin" secondItem="0Fn-sE-oNp" secondAttribute="topMargin" id="LRC-6a-7lK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7vg-p5-7LH" secondAttribute="trailing" id="a6l-Si-Zbp"/>
+                            <constraint firstItem="iVa-tr-NEF" firstAttribute="top" secondItem="F2Y-mz-IXJ" secondAttribute="bottomMargin" id="deH-PA-5hG"/>
+                            <constraint firstItem="7vg-p5-7LH" firstAttribute="leading" secondItem="0Fn-sE-oNp" secondAttribute="leadingMargin" id="hKK-6W-ceS"/>
+                            <constraint firstAttribute="top" secondItem="7vg-p5-7LH" secondAttribute="topMargin" id="iCc-NV-m3v"/>
+                            <constraint firstItem="F2Y-mz-IXJ" firstAttribute="leading" secondItem="0Fn-sE-oNp" secondAttribute="leading" id="sM3-jy-Vaq"/>
+                            <constraint firstItem="iVa-tr-NEF" firstAttribute="top" secondItem="7vg-p5-7LH" secondAttribute="bottomMargin" id="zfm-I1-98H"/>
                         </constraints>
                     </view>
                     <connections>
@@ -122,7 +120,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aAb-r7-I7P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="336" y="408"/>
+            <point key="canvasLocation" x="335.19999999999999" y="407.0464767616192"/>
         </scene>
     </scenes>
     <resources>

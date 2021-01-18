@@ -8,14 +8,14 @@
 
 import UIKit
 
-class Interest
+struct Interest
 {
   // MARK: - Public API
   var id = ""
   var title = ""
   var description = ""
-  var numberOfMembers = 0
-  var numberOfPosts = 0
+//  var numberOfMembers = 0
+//  var numberOfPosts = 0
   var featuredImage: UIImage!
   
   init(id: String, title: String, description: String, featuredImage: UIImage!)
@@ -24,8 +24,8 @@ class Interest
     self.title = title
     self.description = description
     self.featuredImage = featuredImage
-    numberOfMembers = 1
-    numberOfPosts = 1
+//    numberOfMembers = 1
+//    numberOfPosts = 1
   }
   
   // MARK: - Private
