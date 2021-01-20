@@ -24,6 +24,7 @@ class DetailViewController: UIViewController {
     setupNavigationBar()
   }
   
+
   fileprivate func setupNavigationBar() {
     navigationController?.navigationBar.topItem?.title = barTitle
   }
@@ -97,27 +98,23 @@ class DetailViewController: UIViewController {
   fileprivate func multiColor(_ firstColor: UIColor, _ secondColor: UIColor) {
     UIView.animate(withDuration: duration, animations: {
       self.animateView.backgroundColor = firstColor
-      }, completion: { finished in
-        self.changeColor(secondColor)
+    }, completion: { _ in
+      self.changeColor(secondColor)
     })
   }
   
   fileprivate func multiPosition(_ firstPos: CGPoint, _ secondPos: CGPoint) {
-    func simplePosition(_ pos: CGPoint) {
-      UIView.animate(withDuration: self.duration, animations: {
-        self.animateView.frame.origin = pos
-      }, completion: nil)
-    }
-    
     UIView.animate(withDuration: self.duration, animations: {
       self.animateView.frame.origin = firstPos
-      }, completion: { finished in
-        simplePosition(secondPos)
+    }, completion: { _ in
+      UIView.animate(withDuration: self.duration) {
+        self.animateView.frame.origin = secondPos
+      }
     })
   }
   
   fileprivate func rotateView(_ angel: Double) {
-    UIView.animate(withDuration: duration, delay: delay, options: [.repeat], animations: {
+    UIView.animate(withDuration: duration, delay: delay, options: [.repeat, .preferredFramesPerSecond60], animations: {
       self.animateView.transform = CGAffineTransform(rotationAngle: CGFloat(angel))
       }, completion: nil)
   }
@@ -127,11 +124,11 @@ class DetailViewController: UIViewController {
     UIView.animate(withDuration: self.duration, animations: {
       self.animateView.backgroundColor = firstColor
       self.animateView.frame = firstFrame
-      }, completion: { finished in
+      }, completion: { _ in
         UIView.animate(withDuration: self.duration, animations: {
           self.animateView.backgroundColor = secondColor
           self.animateView.frame = secondFrame
-          }, completion: { finished in
+          }, completion: { _ in
             UIView.animate(withDuration: self.duration, animations: {
               self.animateView.backgroundColor = thirdColor
               self.animateView.frame = thirdFrame
@@ -177,7 +174,7 @@ class DetailViewController: UIViewController {
     UIView.animate(withDuration: duration / 4,
       animations: {
       self.animateView.transform = CGAffineTransform(scaleX: CGFloat(self.scale), y: CGFloat(self.scale))
-      }, completion: { finished in
+      }, completion: { _ in
         UIView.animate(withDuration: self.duration / 4, animations: {
           self.animateView.transform = CGAffineTransform.identity
         })

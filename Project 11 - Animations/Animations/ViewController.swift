@@ -27,6 +27,7 @@ class ViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     animateTable()
+    title = "Animations"
   }
   
   func animateTable() {
