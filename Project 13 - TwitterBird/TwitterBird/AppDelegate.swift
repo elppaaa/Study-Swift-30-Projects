@@ -16,13 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CAAnimationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     window = UIWindow(frame: UIScreen.main.bounds)
-    
+
     if let window = window {
       // add background imageView
       imageView = UIImageView(frame: window.frame)
       imageView!.image = UIImage(named: "twitterScreen")
       window.addSubview(imageView!)
-      
+
       // set up mask
       mask = CALayer()
       mask?.contents = UIImage(named: "twitterBird")?.cgImage
@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CAAnimationDelegate {
     keyFrameAnimation.keyTimes = [0, 0.3, 1]
     
     // add animation to current view
-    keyFrameAnimation.timingFunctions = [CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut), CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)]
+    keyFrameAnimation.timingFunctions = [CAMediaTimingFunction(name: .easeInEaseOut), CAMediaTimingFunction(name: .easeOut)]
     mask!.add(keyFrameAnimation, forKey: "bounds")
   }
   
