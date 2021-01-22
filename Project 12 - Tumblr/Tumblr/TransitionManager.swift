@@ -17,7 +17,8 @@ extension TransitionManager: UIViewControllerAnimatedTransitioning {
     let container = transitionContext.containerView
     
     // create a tuple of our screens
-    let screens : (from:UIViewController, to:UIViewController) = (transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!, transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!)
+    let screens : (from:UIViewController, to:UIViewController) =
+      (transitionContext.viewController(forKey: .from)!, transitionContext.viewController(forKey: .to)!)
     
     // assign references to our menu view controller and the 'bottom' view controller from the tuple
     // remember that our menuViewController will alternate between the from and to view controller depending if we're presenting or dismissing
@@ -48,7 +49,7 @@ extension TransitionManager: UIViewControllerAnimatedTransitioning {
         self.offStageMenuController(menuViewController) // offstage items: slide out
       }
       
-      }, completion: { finished in
+      }, completion: { _ in
         transitionContext.completeTransition(true)
         UIApplication.shared.keyWindow?.addSubview(screens.to.view)
         
