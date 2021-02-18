@@ -34,9 +34,7 @@ class ViewController: UIViewController {
     forwardButton.isEnabled = false
     
     webView.navigationDelegate = self
-//    webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
-//    webView.addObserver(self, forKeyPath: "loading", options: .new, context: nil)
-    
+
     observeBag.append(webView.observe(\.isLoading) { webView, _ in
       self.backButton.isEnabled = webView.canGoBack
       self.forwardButton.isEnabled = webView.canGoForward
@@ -99,12 +97,11 @@ extension ViewController: UITextFieldDelegate {
     
     urlField.resignFirstResponder()
     if let str = textField.text {
-      let urlStr: String
+      var urlStr = str
       if !str.starts(with: "https://") {
-        urlStr = "https://" + str
-      } else {
-        urlStr = str
+        urlStr = "https://" + urlStr
       }
+      
       webView.load(urlStr)
     }
     
@@ -115,7 +112,6 @@ extension ViewController: UITextFieldDelegate {
 // MARK: - WKWebView Extension
 extension WKWebView {
   func load(_ urlString: String) {
-    
     if let url = URL(string: urlString) {
       let request = URLRequest(url: url)
       load(request)
