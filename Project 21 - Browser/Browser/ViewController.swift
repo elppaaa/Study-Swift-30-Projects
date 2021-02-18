@@ -19,7 +19,8 @@ class ViewController: UIViewController {
   @IBOutlet weak var backButton: UIBarButtonItem!
   @IBOutlet weak var forwardButton: UIBarButtonItem!
   @IBOutlet weak var reloadButton: UIBarButtonItem!
-  
+  var observeBag =  [NSKeyValueObservation]()
+
   // MARK: - Parameters
   var urlStr: String = "https://www.apple.com"
   
@@ -33,8 +34,21 @@ class ViewController: UIViewController {
     forwardButton.isEnabled = false
     
     webView.navigationDelegate = self
-    webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
-    webView.addObserver(self, forKeyPath: "loading", options: .new, context: nil)
+//    webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
+//    webView.addObserver(self, forKeyPath: "loading", options: .new, context: nil)
+    
+    observeBag.append(webView.observe(\.isLoading) { webView, _ in
+      self.backButton.isEnabled = webView.canGoBack
+      self.forwardButton.isEnabled = webView.canGoForward
+    })
+    
+    observeBag.append(webView.observe(\.estimatedProgress, options: [.new]) { _, value in
+      if let _value = value.newValue {
+        self.progressBar.isHidden = _value == 1
+        self.progressBar.setProgress(Float(_value), animated: true)
+      }
+    })
+
     webView.load(urlStr)
   }
   
@@ -85,7 +99,12 @@ extension ViewController: UITextFieldDelegate {
     
     urlField.resignFirstResponder()
     if let str = textField.text {
-      urlStr = "https://" + str
+      let urlStr: String
+      if !str.starts(with: "https://") {
+        urlStr = "https://" + str
+      } else {
+        urlStr = str
+      }
       webView.load(urlStr)
     }
     
