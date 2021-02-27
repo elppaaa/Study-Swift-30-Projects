@@ -27,6 +27,7 @@ class AddContactViewController: UIViewController {
     super.viewDidLoad()
     
     pickerMonth.delegate = self
+    pickerMonth.dataSource = self
     txtLastName.delegate = self
     
     let doneBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(AddContactViewController.performDoneItemTap))
@@ -48,19 +49,25 @@ extension AddContactViewController: CNContactPickerDelegate {
     present(contactPickerViewController, animated: true, completion: nil)
   }
   
-  func contactPicker(picker: CNContactPickerViewController, didSelectContact contact: CNContact) {
+  func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
     delegate.didFetchContacts([contact])
     navigationController?.popViewController(animated: true)
+  }
+//  func contactPicker(picker: CNContactPickerViewController, didSelectContact contact: CNContact) {
+//  }
+}
+
+extension AddContactViewController: UIPickerViewDataSource {
+  func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    1
+  }
+  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    return months.count
   }
 }
   
 // MARK: UIPickerView Delegate and Datasource functions
 extension AddContactViewController: UIPickerViewDelegate {
-  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    return months.count
-  }
-  
-  
   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
     return months[row]
   }
